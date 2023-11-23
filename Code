@@ -1,0 +1,59 @@
+#include <iostream>
+#include <cstring>
+
+using namespace std;
+
+struct Student
+{
+    char surname[22];
+    char firstName[22];
+    char birthDate[11];
+    double averageGrade;
+};
+
+int main()
+{
+    setlocale(0, ".1251");
+
+    int kil = 0;
+    cout << "Введiть кiлькiсть студентiв: ";
+    cin >> kil;
+
+    Student* students = new Student[kil];
+
+    cout << "Введiть почергово рядки з вiдомостями про студентiв:\n";
+    cout << "Прiзвище Ім'я Дата_народження Середнiй_бал" << endl;
+
+    for (int i = 0; i < kil; i++) {
+        cin >> students[i].surname;
+        cin >> students[i].firstName;
+        cin >> students[i].birthDate;
+        cin >> students[i].averageGrade;
+    }
+    cout << "\nСписок студентiв:\n";
+    cout << "Прiзвище\tІм'я\tДата_народження\tСереднiй_бал" << endl;
+
+    for (int i = 0; i < kil; i++) {
+        cout << students[i].surname << "\t"
+            << students[i].firstName << "\t"
+            << students[i].birthDate << "\t\t"
+            << students[i].averageGrade << endl;
+    }
+    cout << endl << "Студент з найбiльшим середнiм балом:\n";
+    double maxAverageGrade = 0;
+    char maxName[22];
+    for (int i = 0; i < kil; i++) {
+        if (students[i].averageGrade > maxAverageGrade) {
+            maxAverageGrade = students[i].averageGrade;
+            strcpy_s(maxName, students[i].surname);
+            strcat_s(maxName, " ");
+            strcat_s(maxName, students[i].firstName);
+        }
+    }
+    cout << "Середнiй_бал: " << maxAverageGrade << "\t"
+        << "Студент: " << maxName << endl;
+
+    delete[] students;
+    system("pause");
+    return 0;
+}
